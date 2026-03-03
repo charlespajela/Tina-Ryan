@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Question For You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Montserrat', sans-serif;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+  background-size:300% 300%;
+  animation:bgMove 12s ease infinite;
+  overflow:hidden;
+  text-align:center;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+h1{
+  font-family:'Cormorant Garamond', serif;
+  font-size:56px;
+  font-weight:700;
+  color:white;
+  margin-bottom:50px;
+  letter-spacing:2px;
+  text-shadow:0 15px 30px rgba(0,0,0,0.15);
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.buttons{
+  position:relative;
+}
+
+button{
+  padding:14px 45px;
+  font-size:16px;
+  border:none;
+  border-radius:40px;
+  margin:15px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  font-weight:600;
+  letter-spacing:1px;
+}
+
+/* YES button */
+.yes{
+  background:linear-gradient(135deg,#ff4d6d,#ff758c);
+  color:white;
+  box-shadow:0 15px 30px rgba(255,77,109,0.4);
+}
+
+.yes:hover{
+  transform:scale(1.08);
+  box-shadow:0 20px 40px rgba(255,77,109,0.6);
+}
+
+/* NO button */
+.no{
+  background:white;
+  color:#ff4d6d;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  position:relative;
+}
+
+/* Floating particles */
+.particle{
+  position:fixed;
+  bottom:-20px;
+  width:8px;
+  height:8px;
+  background:white;
+  border-radius:50%;
+  opacity:0.5;
+  animation:rise linear infinite;
+}
+
+@keyframes rise{
+  from{transform:translateY(0);}
+  to{transform:translateY(-120vh);}
+}
+</style>
+</head>
+
+<body>
+
+<h1>Will you go on a date with me?</h1>
+
+<div class="buttons">
+  <button class="yes" onclick="goNext()">Yes</button>
+  <button class="no" id="noBtn">No</button>
+</div>
+
+<script>
+function goNext(){
+  window.location.href="location.html";
+}
+
+/* Move only when cursor touches the button */
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseenter", function(){
+
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const randomX = Math.random() * maxX;
+  const randomY = Math.random() * maxY;
+
+  noBtn.style.position = "fixed";
+  noBtn.style.left = randomX + "px";
+  noBtn.style.top = randomY + "px";
+
+});
+
+/* Floating particles */
+function createParticle(){
+  const particle=document.createElement("div");
+  particle.classList.add("particle");
+  particle.style.left=Math.random()*100+"vw";
+  particle.style.animationDuration=(Math.random()*5+5)+"s";
+  document.body.appendChild(particle);
+  setTimeout(()=>particle.remove(),10000);
+}
+setInterval(createParticle,500);
+
+</script>
+
+</body>
+</html>
