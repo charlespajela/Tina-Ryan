@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Our Date Location</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{ margin:0; padding:0; box-sizing:border-box; }
+
+body{
+  font-family:'Montserrat', sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+  background-size:300% 300%;
+  animation:bgMove 12s ease infinite;
+  overflow:hidden;
+  text-align:center;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+h1{
+  font-family:'Cormorant Garamond', serif;
+  font-size:52px;
+  font-weight:700;
+  color:white;
+  margin-bottom:50px;
+  letter-spacing:1.5px;
+  text-shadow:0 15px 30px rgba(0,0,0,0.15);
+  animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(-30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.locations{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:30px;
+}
+
+.card{
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(10px);
+  width:260px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+  cursor:pointer;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 12px 35px rgba(0,0,0,0.2);
+}
+
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+
+.card h3{
+  margin:15px 0;
+  font-size:20px;
+  color:#ff4d6d;
+}
+</style>
+</head>
+<body>
+
+<h1>Choose Our Date Location</h1>
+
+<div class="locations">
+  <div class="card" onclick="selectLocation('Beach')">
+    <img src="picture design/beach.avif" alt="Beach">
+    <h3>Beach Date</h3>
+    
+  </div>
+
+  <div class="card" onclick="selectLocation('Dinner')">
+    <img src="picture design/dinner.jpg" alt="Dinner">
+    <h3>Dinner Date</h3>
+  </div>
+
+  <div class="card" onclick="selectLocation('Coffee')">
+    <img src="picture design/coffee.jpg" alt="Coffee">
+    <h3>Coffee Date</h3>
+  </div>
+</div>
+
+<script>
+function selectLocation(location){
+  // Store the main type of date
+  localStorage.setItem("selectedLocation", location);
+
+  // Redirect to the specific location selection page
+  window.location.href = "specific.html";
+}
+</script>
+
+</body>
+</html>

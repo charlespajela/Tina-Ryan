@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pick Your Specific Location</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Montserrat',sans-serif;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  background:linear-gradient(135deg,#ff9a9e,#fad0c4,#fbc2eb);
+  background-size:300% 300%;
+  animation:bgMove 12s ease infinite;
+  overflow:hidden;
+  text-align:center;
+  padding-top:40px;
+}
+@keyframes bgMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+h1{
+  font-family:'Cormorant Garamond', serif;
+  font-size:52px;
+  font-weight:700;
+  color:white;
+  margin-bottom:50px;
+  letter-spacing:1.5px;
+  text-shadow:0 15px 30px rgba(0,0,0,0.15);
+}
+.back-btn{
+  align-self:flex-start;
+  margin-left:30px;
+  margin-bottom:20px;
+  padding:10px 20px;
+  font-size:16px;
+  background:#ff4d6d;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+.back-btn:hover{
+  transform:scale(1.05);
+  box-shadow:0 6px 15px rgba(0,0,0,0.3);
+}
+.locations{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:30px;
+}
+.card{
+  background:rgba(255,255,255,0.85);
+  backdrop-filter:blur(10px);
+  width:260px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 8px 25px rgba(0,0,0,0.1);
+  cursor:pointer;
+  transition:transform 0.3s, box-shadow 0.3s;
+}
+.card:hover{
+  transform:translateY(-10px);
+  box-shadow:0 12px 35px rgba(0,0,0,0.2);
+}
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+}
+.card h3{
+  margin:15px 0;
+  font-size:20px;
+  color:#ff4d6d;
+}
+</style>
+</head>
+<body>
+
+<button class="back-btn" onclick="goBack()">← Back</button>
+<h1 id="title">Pick Your Specific Location</h1>
+<div class="locations" id="specificLocations"></div>
+
+<script>
+function goBack(){ window.location.href="location.html"; }
+
+const type = localStorage.getItem("selectedLocation");
+const specificLocationsDiv = document.getElementById("specificLocations");
+const title = document.getElementById("title");
+
+const locationsData = {
+  "Beach":[
+    {name:"Jesper Beach", img:"beach pictures/jespera.jpg"},
+    {name:"Tiquiano's Beach", img:"beach pictures/tequianos.jpg"},
+    {name:"Marvilla Beach", img:"beach pictures/marvilla.jpg"}
+  ],
+  "Dinner":[
+    {name:"High Ridge", img:"dinner pictures/High Ridge.jpg"},
+    {name:"King's Food & Music Expo Uptown", img:"dinner pictures/King's Food & Music Expo Uptown.jpg"},
+    {name:"Arturo´s Filipino Restaurant", img:"dinner pictures/sd.jpg"}
+  ],
+  "Coffee":[
+    {name:"Milestone Coffee", img:"coffee pictures/Milestone Coffee.jpg"},
+    {name:"Graé Coffee Uptown", img:"coffee pictures/Graé Coffee Uptown.jpg"},
+    {name:"Elyseé Café", img:"coffee pictures/Elyseé Café.jpg"}
+  ]
+}
+
+title.textContent = `Pick Your ${type} Location`;
+
+locationsData[type].forEach(loc=>{
+  const card=document.createElement("div");
+  card.classList.add("card");
+  card.innerHTML=`<img src="${loc.img}" alt="${loc.name}"><h3>${loc.name}</h3>`;
+  card.onclick=()=>{
+    localStorage.setItem("specificLocation",JSON.stringify({name:loc.name,img:loc.img}));
+    window.location.href="datetime.html";
+  };
+  specificLocationsDiv.appendChild(card);
+});
+</script>
+</body>
+</html>
